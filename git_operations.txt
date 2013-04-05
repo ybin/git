@@ -16,3 +16,11 @@ e.g. 有时会在文件管理器中删除workspace中的文件，这时移除这
 但是这个只能在linux上使用，还有更通用的方法：
 	git commit -a
 它会自动将已经删除的文件从索引中移除。
+
+git commit -a
+-a == --all
+Tell the command to automatically stage files that have been modified and deleted,
+but new files you have not told git about are not affected.
+注意：-a会影响modified和deleted文件哦！所以将已经删除的文件从index中去掉，可以使用
+	git commit -a
+来完成。
