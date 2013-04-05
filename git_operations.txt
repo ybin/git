@@ -2,6 +2,17 @@ git fetch/pull/push的统一格式为：
     git fetch/pull/push <repo> <src>:<dst>
 但是对于“方向”不同的操作，src和dst指代不同，
 对于fetch和pull，src指远程分支，dst指本地分支，而对于push则相反。
+对于fetch/pull
+	git fetch/pull <repo> <rbranch>:<lbranch>
+对于push
+	git push <repo> <lbranch>:<rbranch>
 
 git ls-remote [--heads] [--tags] <repo>
     列举出<repo>中所有的refs
+	
+git ls-files [--cached|deleted|ignored|stage|modified]
+e.g. 有时会在文件管理器中删除workspace中的文件，这时移除这些已经被删除的文件：
+	git rm $(git ls-files --deleted)
+但是这个只能在linux上使用，还有更通用的方法：
+	git commit -a
+它会自动将已经删除的文件从索引中移除。
