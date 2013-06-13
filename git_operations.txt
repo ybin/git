@@ -24,3 +24,37 @@ but new files you have not told git about are not affected.
 注意：-a会影响modified和deleted文件哦！所以将已经删除的文件从index中去掉，可以使用
 	git commit -a
 来完成。
+
+=========================
+git reset v.s. git checkout
+从两方面来比较：commit级别 和 file级别
+commit级别：
+	reset又分为--soft, --mixed, --hard三种，而checkout会直接把commit的内容，覆盖到index，
+	然后再覆盖到working tree，但是如果与working tree中原本的内容冲突的话就不会修改working tree的内容。
+file级别：
+	git reset <commit> <file-path>
+	<commit>如果省略就是用HEAD，该操作只影响index，不影响working tree，相当于使用reset的--mixed参数，
+	但是reset 文件级别的操作没有--hard, --soft参数。
+	
+	git checkout <commit> <file-path>
+	如果省略<commit>就会将index的内容覆盖到working tree，直接覆盖，不会警告，
+	如果不省略<commit>就会将commint中的<file-path>覆盖index，然后覆盖working tree，不警告。
+	所以，
+	git checkout HEAD <file> 跟 git checkout <file>
+	两个操作结果是不一样的。
+	
+===========================
+update-ref 与 symbolic-ref
+update-ref修改ref下的内容，如
+	git update-ref refs/heads/master cac0d3
+	相当于
+	echo "cac0d3" > .git/refs/heads/master
+	但是，使用update-ref更加安全
+symbolic-ref修改对ref的引用，可以理解为修改**二级指针**，如，
+	git symbolic-ref  HEAD  refs/heads/master
+	相当于
+	echo "refs/heads/master" > HEAD
+	但是，使用symbolic-ref更加安全
+
+===========================
+
