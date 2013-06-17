@@ -1,0 +1,23 @@
+
+为了编译一个项目，把整个项目的所有分支以及每个分支的所有历史都拷贝出来无疑让人生厌，
+浅拷贝不可或缺。
+
+git的浅拷贝方法：
+	git clone --single-branch --branch <rbranch> --depth 1 <repo-url> [<directory>]
+起关键作用的是--depth选项，其实使用--depth选项时，--single-branch是默认开启的，这个可以省略。
+--branch指定本地的HEAD所指向的分支，即clone完之后默认checkout出来的分支，如果不指定就
+使用repo中的HEAD指定的分支，如果repo中的HEAD没有指定，就不clone任何分支。
+
+注意：--depth 最小是 1， 当指定为 1 时，最新的"2"个commit被复制出来（不知道为何如此），
+如果指定为 0，就把所有的历史commit都复制出来。
+
+
+P.S. 以前使用fetch进行浅拷贝的方法是错误的，它只能保证拉取单个分支，但是分支历史还是会完整拉取下来，因为：
+git fetch --depth <n>
+这个<n>是deepen浅拷贝时的depth的，比如，
+git clone时 --depth设置为 1，
+现在想多拉取几个commit，那就可以扩展一下：
+git fetch --depth 5
+最新的5个commit就被拉出来了。
+
+P.S. deepen: vt 加深.
